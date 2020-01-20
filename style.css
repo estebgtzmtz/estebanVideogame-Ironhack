@@ -1,0 +1,14 @@
+canvas {
+    border: 2px solid black;
+}
+
+body button {
+    font-size: 10px;
+    background-color: blue;
+    color: #fff;
+    padding: 20px 40px;
+    border: 0;
+    box-shadow: 0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
