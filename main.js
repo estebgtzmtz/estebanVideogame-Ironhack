@@ -40,10 +40,11 @@ class Hero {
         }
     }
     draw() {
+        if (this.sx < 0) this.sx = 1500;
         ctx.drawImage(this.img, this.sx, this.sy, 500, 500, this.x, this.y, this.width, this.height)
     }
     goLeft() {
-        this.x -= 20;
+        this.x -= 5;
         this.move();
     }
     move() {
@@ -61,17 +62,22 @@ const update = () => {
     hero.draw();
 }
 
-document.getElementById("start-button").onclick = function() {
-    startGame();
-};
 
-document.addEventListener('keydown', ({ keyCode }) => {
-    switch (keyCode) {
-        case 37:
-            return hero.goLeft();
+
+
+window.onload = function() {
+    document.addEventListener('keydown', ({ keyCode }) => {
+        switch (keyCode) {
+            case 37:
+                return hero.goLeft();
+        }
+    })
+
+
+    const startGame = () => {
+        interval = setInterval(update, 300 / 15);
     }
-})
-
-const startGame = () => {
-    interval = setInterval(update, 1000);
+    document.getElementById("start-button").onclick = function() {
+        startGame();
+    };
 }
