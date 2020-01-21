@@ -131,9 +131,9 @@ const getRandomIndex = () => {
 }
 
 const drawLetter = () => {;
-    ctx.font = "20px Arial";
+    ctx.font = "100px Arial";
     ctx.fillStyle = "black";
-    ctx.fillText(`${lettersArray[randomIndex]} `, canvas.width - 500, 50);
+    ctx.fillText(`${lettersArray[randomIndex]} `, canvas.width - 430, 300);
 }
 
 const background = new Background();
