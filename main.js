@@ -134,7 +134,7 @@ const getRandomIndex = () => {
 }
 
 const drawLetter = () => {;
-    ctx.font = "100px Arial";
+    ctx.font = "90px Arial";
     ctx.fillStyle = "black";
     ctx.fillText(`${lettersArray[randomIndex]} `, canvas.width - 430, 300);
 }
@@ -196,6 +196,11 @@ window.onload = function() {
     }
 
     document.getElementById("start-button").onclick = function() {
+        if (canvas.webkitRequestFullScreen) {
+            canvas.webkitRequestFullScreen()
+        } else {
+            canvas.mozRequestFullScreen()
+        }
         startGame();
     };
 };
