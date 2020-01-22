@@ -127,18 +127,22 @@ const createEnemy = () => {
 
 const drawObstacles = () => {
     obstacles.forEach(enemy => enemy.draw());
-    console.log(obstacles);
 }
 
 const getRandomIndex = () => {
     randomIndex = Math.floor(Math.random() * 25)
-    console.log(lettersArray[randomIndex]);
 }
 
 const drawLetter = () => {;
     ctx.font = "100px Arial";
     ctx.fillStyle = "black";
     ctx.fillText(`${lettersArray[randomIndex]} `, canvas.width - 430, 300);
+}
+
+const drawLife = () => {;
+    ctx.font = "50px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText(`Jolteon Power: ${lifes}`, canvas.width - 430, 50);
 }
 
 const eliminateEnemy = (key, idx) => {
@@ -151,7 +155,6 @@ const checkCollitions = () => {
     obstacles.forEach((obstacle) => {
         if (hero.isTouching(obstacle)) {
             lifes--;
-            console.log(lifes);
         }
     })
 }
@@ -174,6 +177,7 @@ const update = () => {
     hero.goLeft();
     drawObstacles();
     drawLetter();
+    drawLife();
     checkCollitions();
     if (lifes === 0) {
         clearInterval(interval);
