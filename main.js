@@ -112,12 +112,6 @@ class Enemy {
     }
 }
 
-const drawSpaceAttack = () => {
-    ctx.fillStyle = 'red';
-    ctx.fillRect(canvas.width - 580, canvas.height - 130, 150, 20);
-    ctx.stroke();
-}
-
 const createEnemy = () => {
     obstacles.push(new Enemy());
 }
@@ -149,8 +143,8 @@ const logo = new Logo();
 
 const update = () => {
     frames++;
-    if (frames % 100 === 0) { getRandomIndex(); }
-    if (frames % /*Math.floor((Math.random() * (80 - 50) + 50))*/ 100 === 0) createEnemy();
+    if (frames % 25 === 0) { getRandomIndex(); }
+    if (frames % /*Math.floor((Math.random() * (80 - 50) + 50))*/ 25 === 0) createEnemy();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     background.draw();
     background.goRight();
@@ -158,7 +152,6 @@ const update = () => {
     hero.draw();
     hero.goLeft();
     drawObstacles();
-    drawSpaceAttack();
     drawLetter();
 }
 
