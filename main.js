@@ -6,6 +6,7 @@ const lettersArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'
 let interval;
 let randomIndex;
 let frames = 0;
+let lifes = 70;
 
 const imgs = {
     background: './images/background.png',
@@ -84,6 +85,14 @@ class Hero {
     attack() {
         this.sx = 0;
     }
+    isTouching(obstacle) {
+        return (
+            this.x < obstacle.x + obstacle.width &&
+            this.x + this.width > obstacle.x &&
+            this.y < obstacle.y + obstacle.height &&
+            this.y + this.height > obstacle.y
+        )
+    }
 }
 
 class Enemy {
@@ -137,14 +146,26 @@ const eliminateEnemy = (key, idx) => {
         obstacles.splice(idx, 1);
     }
 }
+
+const checkCollitions = () => {
+    obstacles.forEach((obstacle) => {
+        if (hero.isTouching(obstacle)) {
+            lifes--;
+            console.log(lifes);
+        }
+    })
+}
+
 const background = new Background();
 const hero = new Hero();
 const logo = new Logo();
 
 const update = () => {
     frames++;
-    if (frames % 25 === 0) { getRandomIndex(); }
-    if (frames % /*Math.floor((Math.random() * (80 - 50) + 50))*/ 25 === 0) createEnemy();
+    if (frames % /*Math.floor((Math.random() * (70 - 40) + 40))*/ 50 === 0) {
+        createEnemy();
+        getRandomIndex();
+    }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     background.draw();
     background.goRight();
@@ -153,6 +174,10 @@ const update = () => {
     hero.goLeft();
     drawObstacles();
     drawLetter();
+    checkCollitions();
+    if (lifes === 0) {
+        clearInterval(interval);
+    }
 }
 
 window.onload = function() {
