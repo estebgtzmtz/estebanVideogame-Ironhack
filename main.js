@@ -4,6 +4,7 @@ const ctx = canvas.getContext('2d');
 const obstacles = [];
 const lettersArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 let interval;
+let randomIndex;
 let frames = 0;
 
 const imgs = {
@@ -53,6 +54,7 @@ class Logo {
     }
 }
 
+
 class Hero {
     constructor() {
         this.x = canvas.width - 450;
@@ -92,6 +94,7 @@ class Enemy {
         this.height = 120;
         this.sx = 0;
         this.sy = 0;
+        this.key = lettersArray[randomIndex];
         this.img = new Image();
         this.img.src = imgs.enemy;
         this.img.onload = () => {
@@ -121,10 +124,9 @@ const createEnemy = () => {
 
 const drawObstacles = () => {
     obstacles.forEach(enemy => enemy.draw());
-    console.log(obstacles)
+    console.log(obstacles);
 }
 
-let randomIndex
 const getRandomIndex = () => {
     randomIndex = Math.floor(Math.random() * 25)
     console.log(lettersArray[randomIndex]);
@@ -136,14 +138,19 @@ const drawLetter = () => {;
     ctx.fillText(`${lettersArray[randomIndex]} `, canvas.width - 430, 300);
 }
 
+const eliminateEnemy = (key, idx) => {
+    if (key === Enemy.key) {
+        obstacles.splice(idx, 1);
+    }
+}
 const background = new Background();
 const hero = new Hero();
 const logo = new Logo();
 
 const update = () => {
     frames++;
-    if (frames % 25 === 0) { getRandomIndex(); }
-    if (frames % /*Math.floor((Math.random() * (80 - 50) + 50))*/ 25 === 0) createEnemy();
+    if (frames % 100 === 0) { getRandomIndex(); }
+    if (frames % /*Math.floor((Math.random() * (80 - 50) + 50))*/ 100 === 0) createEnemy();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     background.draw();
     background.goRight();
@@ -153,15 +160,12 @@ const update = () => {
     drawObstacles();
     drawSpaceAttack();
     drawLetter();
-    //drawLetter();
 }
 
 window.onload = function() {
     document.addEventListener('keydown', ({ keyCode }) => {
-        switch (keyCode) {
-            case 81:
-                hero.attack();
-                break;
+        if (keyCode < 100) {
+            eliminateEnemy();
         }
     })
 
