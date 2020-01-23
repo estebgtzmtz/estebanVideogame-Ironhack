@@ -12,8 +12,11 @@ const imgs = {
     background: './images/background.png',
     sprite: './images/sprite.png',
     logo: './images/logo.png',
-    enemy: './images/enemy.png'
+    enemy: './images/enemy.png',
+}
 
+const music = {
+    soundtrack: './music/pokemon.mp3'
 }
 
 class Background {
@@ -27,6 +30,9 @@ class Background {
         this.img.onload = () => {
             this.draw();
         }
+        this.audio = new Audio();
+        this.audio.src = music.soundtrack;
+        this.audio.loop = true;
     }
     draw() {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -159,13 +165,20 @@ const checkCollitions = () => {
     })
 }
 
+const gameOver = () => {
+    if (lifes === 0) {
+        clearInterval(interval);
+    }
+
+}
+
 const background = new Background();
 const hero = new Hero();
 const logo = new Logo();
 
 const update = () => {
     frames++;
-    if (frames % /*Math.floor((Math.random() * (70 - 40) + 40))*/ 50 === 0) {
+    if (frames % 50 === 0) {
         createEnemy();
         getRandomIndex();
     }
@@ -179,19 +192,19 @@ const update = () => {
     drawLetter();
     drawLife();
     checkCollitions();
-    if (lifes === 0) {
-        clearInterval(interval);
-    }
+    gameOver();
 }
 
 window.onload = function() {
     document.addEventListener('keydown', ({ keyCode }) => {
-        if (keyCode < 100) {
+        if (keyCode >= 65 && keyCode <= 90) {
             eliminateEnemy();
         }
     })
 
     const startGame = () => {
+        if (interval) return;
+        background.audio.play();
         interval = setInterval(update, 1000 / 20);
     }
 
