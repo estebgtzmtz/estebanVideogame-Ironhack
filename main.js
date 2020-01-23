@@ -167,7 +167,13 @@ const checkCollitions = () => {
 
 const gameOver = () => {
     if (lifes === 0) {
+        background.audio.pause();
         clearInterval(interval);
+        const title = "GAME OVER"
+        ctx.fillStyle = 'red'
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillText(title, (canvas.width / 2) - 200, 300);
+        obstacles = [];
     }
 
 }
