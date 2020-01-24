@@ -214,7 +214,15 @@ window.onload = function() {
         interval = setInterval(update, 1000 / 20);
     }
 
-    document.getElementById("start-button").onclick = function() {
+    document.getElementById("start-button1").onclick = function() {
+        if (canvas.webkitRequestFullScreen) {
+            canvas.webkitRequestFullScreen()
+        } else {
+            canvas.mozRequestFullScreen()
+        }
+        startGame();
+    };
+    document.getElementById("start-button2").onclick = function() {
         if (canvas.webkitRequestFullScreen) {
             canvas.webkitRequestFullScreen()
         } else {
