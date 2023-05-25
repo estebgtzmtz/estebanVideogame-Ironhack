@@ -8,6 +8,7 @@ let randomIndex;
 let frames = 0;
 let lifes = 70;
 let score = 0;
+let letra;
 
 const imgs = {
     background: './images/background.png',
@@ -110,7 +111,7 @@ class Enemy {
         this.height = 120;
         this.sx = 0;
         this.sy = 0;
-        this.key =  lettersArray[randomIndex];
+        this.key = lettersArray[randomIndex];
         this.img = new Image();
         this.img.src = imgs.enemy;
         this.img.onload = () => {
@@ -140,35 +141,35 @@ const getRandomIndex = () => {
     randomIndex = Math.floor(Math.random() * 25);
 }
 
-const drawLetter = () => {;
-    let letra = lettersArray[randomIndex];
-    if(letra===undefined){
+const drawLetter = () => {
+    letra = lettersArray[randomIndex];
+    if (letra === undefined) {
         ctx.font = "90px Arial";
         ctx.fillStyle = "black";
         ctx.fillText(``, canvas.width - 430, 320);
-    }else{
+    } else {
         ctx.font = "90px Arial";
         ctx.fillStyle = "black";
         ctx.fillText(`${letra}`, canvas.width - 430, 320);
     }
 }
 
-const drawLife = () => {;
+const drawLife = () => {
     ctx.font = "50px Arial";
     ctx.fillStyle = "white";
-    ctx.fillText(`Jolteon Power: ${lifes}`, canvas.width - 550, canvas.height-30);
+    ctx.fillText(`Jolteon Power: ${lifes}`, canvas.width - 550, canvas.height - 30);
 }
 
 const drawInstructions1 = () => {
     ctx.font = "70px Arial";
     ctx.fillStyle = "black";
-    ctx.fillText(`Press the correct key `, canvas.width-700, 80);
+    ctx.fillText(`Press the correct key `, canvas.width - 700, 80);
 }
 
 const drawInstructions2 = () => {
     ctx.font = "50px Arial";
     ctx.fillStyle = "black";
-    ctx.fillText(`to keep alive Jolteon`, canvas.width-600, 130);
+    ctx.fillText(`to keep alive Jolteon`, canvas.width - 600, 130);
 }
 const checkCollitions = () => {
     obstacles.forEach((obstacle) => {
@@ -197,12 +198,9 @@ const logo = new Logo();
 
 document.addEventListener('keydown', ({ keyCode }) => {
     let keyPressed = String.fromCharCode(keyCode).toUpperCase();
-    if (keyCode >= 65 && keyCode <= 90) {
-        obstacles.splice(0,1);
-        /*for(let i=0; i<=obstacles.length; i++){
-            if(obstacles[i].key === keyPressed){
-            }
-        } */  
+    console.log(keyPressed, 'vamos a ver que es esto')
+    if (keyPressed === letra) {
+        obstacles.splice(0, 1);
     }
 })
 
@@ -234,9 +232,9 @@ const update = () => {
 }
 
 
-window.onload = function() {
+window.onload = function () {
 
-    document.getElementById("start-button1").onclick = function() {
+    document.getElementById("start-button1").onclick = function () {
         if (canvas.webkitRequestFullScreen) {
             canvas.webkitRequestFullScreen()
         } else {
@@ -244,7 +242,7 @@ window.onload = function() {
         }
         startGame();
     };
-    document.getElementById("start-button2").onclick = function() {
+    document.getElementById("start-button2").onclick = function () {
         if (canvas.webkitRequestFullScreen) {
             canvas.webkitRequestFullScreen()
         } else {
