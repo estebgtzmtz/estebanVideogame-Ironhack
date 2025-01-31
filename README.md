@@ -11,4 +11,4 @@
  ```javascript
  console.log('Made in ironhack with love');
 ```
- Still working on bugs :octocat:
+:octocat:
